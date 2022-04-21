@@ -1,0 +1,27 @@
+COMANDOS PARA SUBIR A PRODUCCIÓN HEROKU
+*****************************************
+
+pip install django-cors-headers
+
+pip install gunicorn
+pip install psycopg
+pip install whitenoise
+pip install django-heroku
+pip freeze > requirements.txt
+'python-3.9.4' > runtime.txt
+heroku login
+git init
+heroku git:remote -a api-merengon-bavaro
+heroku buildpacks:set heroku/python
+git add .
+git commit -m "Commit a producción"
+git push origin produccion
+git push heroku produccion:main
+heroku addons:attach heroku-postgresql -a api-merengon-bavaro --as HEROKU_DATABASE
+heroku addons:detach DATABASE -a api-merengon-bavaro
+heroku config:add DATABASE_URL="postgresql://user:password@server:port"
+----------------------------------------------
+video y repo ejemplo:
+https://youtu.be/ruSjZ6hY-PU
+https://github.com/ali01cruz/django_to_heroku
+-----------------------------------------------
